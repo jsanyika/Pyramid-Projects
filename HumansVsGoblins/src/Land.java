@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Land {
 
@@ -18,7 +19,7 @@ public class Land {
     }
 
     public int[] addCharacter(Characters entity){
-
+ 
         int[] coordinates = pickRandomCoordinates();
         addToGameWorld(coordinates, entity);
         return coordinates;
@@ -65,6 +66,13 @@ public class Land {
                 }
             }
             System.out.print("\n");
+        }
+    }
+
+    public void refreshPositions(){
+        for (Characters entity:
+             entities) {
+            this.addToGameWorld(entity.getPosition(), entity);
         }
     }
 

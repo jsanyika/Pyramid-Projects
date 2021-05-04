@@ -35,14 +35,26 @@ public class Main {
         RuntGoblin runtGoblin = new RuntGoblin(world);
         MinionGoblin minionGoblin = new MinionGoblin(world);
 
-        bossGoblin.setPosition(world.addCharacter(bossGoblin));
-        runtGoblin.setPosition(world.addCharacter(runtGoblin));
-        minionGoblin.setPosition(world.addCharacter(minionGoblin));
-        human.setPosition(world.addCharacter(human));
+        int[] bossGoblinPosition = world.addCharacter(bossGoblin);
+        int[] runtGoblinPosition = world.addCharacter(runtGoblin);
+        int[] minionGoblinPosition = world.addCharacter(minionGoblin);
+        int[] humanPosition = world.addCharacter(human);
+
+        bossGoblin.setPosition(bossGoblinPosition[0], bossGoblinPosition[1]);
+        runtGoblin.setPosition(runtGoblinPosition[0], runtGoblinPosition[1]);
+        minionGoblin.setPosition(minionGoblinPosition[0], minionGoblinPosition[1]);
+        human.setPosition(humanPosition[0], humanPosition[1]);
 
 
 
         world.drawGameWorld();
+
+
+        while(true) {
+            while(human.makeAMove(input.nextLine().substring(0,1).toLowerCase())){
+
+            }
+        }
 
 
 

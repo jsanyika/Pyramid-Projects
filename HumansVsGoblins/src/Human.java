@@ -12,14 +12,21 @@ public class Human extends Characters{
     }
 
     public boolean makeAMove(String direction){
-        int[] currentPosition = this.getPosition();
         switch (direction) {
             case("n") :
+                this.setPosition(getXPosition(), getYPosition() + 1);
+                return true;
             case("s"):
+                this.setPosition(getXPosition(), getYPosition() - 1);
+                return true;
             case("e"):
+                this.setPosition(this.getXPosition() + 1, this.getYPosition());
+                return true;
             case("w"):
+                this.setPosition(this.getXPosition() - 1, this.getYPosition());
+                return true;
             default:
+                return false;
         }
-        return true;
     }
 }
