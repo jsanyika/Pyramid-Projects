@@ -20,7 +20,26 @@ public class Player {
         printPrimary();
         placeBoat(carrier);
         printPrimary();
+        placeBoat(battleship1);
+        printPrimary();
+        placeBoat(battleship2);
+        printPrimary();
+        placeBoat(destroyer1);
+        printPrimary();
+        placeBoat(destroyer2);
+        printPrimary();
+        placeBoat(destroyer3);
+        printPrimary();
+        placeBoat(submarine1);
+        printPrimary();
+        placeBoat(submarine2);
+        printPrimary();
+        placeBoat(submarine3);
+        printPrimary();
         placeBoat(patrolBoat1);
+        printPrimary();
+        placeBoat(patrolBoat2);
+        printPrimary();
     }
 
     public void printPrimary(){
@@ -31,12 +50,20 @@ public class Player {
 
         System.out.println("Where would you like the x value for your " + boat.getName() + " to be?(" + boat.getSize() +
                 " spaces needed)");
+        int x = -1;
+        int y = -1;
+        String rotation = "";
 
-        int x = Integer.parseInt(input.nextLine());
-        System.out.println("And the y value?");
-        int y = Integer.parseInt(input.nextLine());
-        System.out.println("And what about the rotation?(h/v)");
-        String rotation = input.nextLine();
+        try {
+            x = Integer.parseInt(input.nextLine());
+            System.out.println("And the y value?");
+            y = Integer.parseInt(input.nextLine());
+            System.out.println("And what about the rotation?(h/v)");
+            rotation = input.nextLine();
+        } catch (NumberFormatException e) {
+            System.out.println("Please choose appropriate values for each.");
+            placeBoat(boat);
+        }
 
         if (checkPath(boat, x, y, rotation)){
             switch (rotation) {
@@ -46,9 +73,9 @@ public class Player {
                     }
                     return true;
                 case("v") :
-                    for (int i = y; i < y + boat.getSize(); y++) {
-                    primaryGrid.setCharAtCoordinate(new int[]{x, i}, boat.getLetter());
-                }
+                    for (int i = y; i < y + boat.getSize(); i++) {
+                        primaryGrid.setCharAtCoordinate(new int[]{x, i}, boat.getLetter());
+                    }
                     return true;
                 default :
                     return false;
@@ -67,16 +94,17 @@ public class Player {
                 case ("h"):
                     for (int i = x; i < x + boat.getSize(); i++) {
                         if (!primaryGrid.checkIfEmptySpace(i, y)) {
-
                             return false;
                         }
                     }
+                    return true;
                 case ("v"):
                     for (int i = y; i < y + boat.getSize(); i++) {
                         if (!primaryGrid.checkIfEmptySpace(x, i)) {
                             return false;
                         }
                     }
+                    return true;
             }
         } catch (IndexOutOfBoundsException e){
             return false;

@@ -1,7 +1,7 @@
 public class Grid {
 
     private char[][] grid = new char[10][10];
-    private final char emptySpace = 'o';
+    private final char emptySpace = '~';
 
     public Grid(){
         for(int i = 0; i <= 9; i ++){
@@ -11,22 +11,24 @@ public class Grid {
         }
     }
 
+    public char getEmptySpace(){ return emptySpace;}
+
     public char[][] getGrid(){
         return grid;
     }
 
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("  0 1 2 3 4 5 6 7 8 9 y\n");
+        stringBuilder.append("  0 1 2 3 4 5 6 7 8 9 x\n");
 
         for(int i = 0; i <= 9; i++) {
             stringBuilder.append(i + " ");
             for(int j = 0; j <= 9; j++) {
-                stringBuilder.append(getGrid()[i][j] + " ");
+                stringBuilder.append(getGrid()[j][i] + " ");
             }
             stringBuilder.append("\n");
         }
-        stringBuilder.append("x \n");
+        stringBuilder.append("y \n");
         return stringBuilder.toString();
     }
 

@@ -14,6 +14,6 @@ public class Destroyer extends Boat{
 
     @Override
     public String getName() {
-        return super.getName();
+        return name;
     }
 }
