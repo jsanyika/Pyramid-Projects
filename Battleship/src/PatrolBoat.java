@@ -4,7 +4,9 @@ public class PatrolBoat extends Boat{
     private String name = "Patrol Boat";
 
     public PatrolBoat() {
+        super();
         this.setSize(2);
+        this.setHealth(this.getSize());
     }
 
     @Override

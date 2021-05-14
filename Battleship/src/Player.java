@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Player {
     private Scanner input = new Scanner(System.in);
+    public String name = "";
     private Tracking trackingGrid = new Tracking();
     private Primary primaryGrid = new Primary();
     private Carrier carrier = new Carrier();
@@ -15,8 +17,11 @@ public class Player {
     private Submarine submarine3 = new Submarine();
     private PatrolBoat patrolBoat1 = new PatrolBoat();
     private PatrolBoat patrolBoat2 = new PatrolBoat();
+    private ArrayList<Boat> boats = new ArrayList<>();
 
     public Player(){
+        System.out.println("Hello! What would you like to be called?");
+        this.name = input.nextLine();
         printPrimary();
         placeBoat(carrier);
         printPrimary();
@@ -45,6 +50,7 @@ public class Player {
     public void printPrimary(){
         System.out.print(primaryGrid.toString());
     }
+    public void printTracking() { System.out.print(trackingGrid.toString());}
 
     public boolean placeBoat(Boat boat){
 
@@ -70,11 +76,15 @@ public class Player {
                 case("h") :
                     for (int i = x; i < x + boat.getSize(); i++){
                         primaryGrid.setCharAtCoordinate(new int[]{i, y}, boat.getLetter());
+                        boat.addToCoordinates(i, y);
+                        boats.add(boat);
                     }
                     return true;
                 case("v") :
                     for (int i = y; i < y + boat.getSize(); i++) {
                         primaryGrid.setCharAtCoordinate(new int[]{x, i}, boat.getLetter());
+                        boat.addToCoordinates(x, i);
+                        boats.add(boat);
                     }
                     return true;
                 default :
@@ -110,6 +120,35 @@ public class Player {
             return false;
         }
         return true;
+    }
+
+    public boolean attack(int x, int y, Player target) {
+        if(this.trackingGrid.checkIfEmptySpace(x, y)){
+            target.attackTarget(x,y);
+            trackingGrid.setCharAtCoordinate(new int[]{x,y}, 'X');
+            return target.attackTarget(x,y);
+        } else {
+            System.out.println("This location has been targeted already");
+            return false;
+        }
+    }
+
+    public boolean attackTarget(int x, int y){
+        if (primaryGrid.checkIfEmptySpace(x, y) || primaryGrid.getCharAtCoordinate(x,y) == 'X'){
+            primaryGrid.setCharAtCoordinate(new int[]{x,y}, 'X');
+            return false;
+        } else {
+            for(Boat boat : boats){
+                for(int[] coordinates : boat.getCoordinates()){
+                    if(coordinates[0] == x && coordinates[1] == y){
+                        primaryGrid.setCharAtCoordinate(new int[]{x,y}, 'X');
+                        boat.takeDamage();
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 

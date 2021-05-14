@@ -4,7 +4,9 @@ public class Destroyer extends Boat{
     private String name = "Destroyer";
 
     public Destroyer(){
+        super();
         this.setSize(3);
+        this.setHealth(this.getSize());
     }
 
     @Override

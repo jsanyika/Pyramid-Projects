@@ -52,7 +52,7 @@ public class Land {
     public void drawGameWorld(){
         for(int i = 0; i <= size - 1; i++){
             for(int j = 0; j <= size - 1; j++){
-                Characters space = this.gameWorld[i][j];
+                Characters space = this.gameWorld[j][i];
                 if(space == null){
                     System.out.print("^  ");
                 } else if(space.getName().equals("Human")) {
@@ -74,6 +74,11 @@ public class Land {
              entities) {
             this.addToGameWorld(entity.getPosition(), entity);
         }
+    }
+
+    public boolean moveCharacter(int x, int y){
+
+        return true;
     }
 
 }
